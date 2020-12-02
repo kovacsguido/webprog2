@@ -1,0 +1,66 @@
+version: '2'
+
+services:
+    web2hf_app:
+        image: php:7.1-fpm
+        container_name: web2hf_app
+        hostname: app
+        volumes:
+            - .:/app
+        command: "true"
+
+    web2hf_data:
+        image: mysql:5.7
+        container_name: web2hf_data
+        hostname: data
+        volumes:
+            - /srv/data/mysql.egyetem.web2hf:/var/lib/mysql
+        command: "true"
+
+    web2hf_db:
+        image: mysql:5.7
+        container_name: web2hf_db
+        hostname: db
+        ports:
+            - "3306:3306"
+        volumes_from:
+            - web2hf_data
+        environment:
+            MYSQL_DATABASE: web2hf
+            MYSQL_USER: web2user
+            MYSQL_PASSWORD: S3cr3tP4ssw0rd
+            MYSQL_ROOT_PASSWORD: tyURX61HVvedBr6V
+
+    web2hf_web:
+        image: kovacsguido/nginx
+        container_name: web2hf_web
+        hostname: web
+        ports:
+            - "80:80"
+        links:
+            - web2hf_php
+        volumes:
+            - ./etc/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        volumes_from:
+            - web2hf_app
+
+    web2hf_php:
+        image: kovacsguido/php:7.1
+        container_name: web2hf_php
+        hostname: php
+        volumes:
+            - ./etc/docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./etc/docker/php/opcache.conf:/usr/local/etc/php/conf.d/opcache.conf
+        volumes_from:
+            - web2hf_app
+
+    web2hf_pma:
+        image: phpmyadmin/phpmyadmin
+        container_name: web2hf_pma
+        hostname: pma
+        ports:
+            - "8080:80"
+        links:
+            - web2hf_db
+        environment:
+            PMA_HOST: web2hf_db
