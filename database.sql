@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS users (
   username varchar(64) CHARACTER SET utf8 COLLATE utf8_hungarian_ci NOT NULL,
   firstname varchar(32) CHARACTER SET utf8 COLLATE utf8_hungarian_ci NOT NULL,
   lastname varchar(32) CHARACTER SET utf8 COLLATE utf8_hungarian_ci NOT NULL,
-  password varchar(40) CHARACTER SET utf8 COLLATE utf8_hungarian_ci NOT NULL,
+  password varchar(64) CHARACTER SET utf8 COLLATE utf8_hungarian_ci NOT NULL,
   permission int NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (permission) REFERENCES user_permissions(id)
