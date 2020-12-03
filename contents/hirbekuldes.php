@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $restServerUrl = 'http://' . SITE_HOST . '/rest/server.php';
         $data = [
             'title'   => $title,
-            'body'    => $body,
+            'body'    => nl2br($body),
             'user_id' => $_SESSION['user']['id']
         ];
         $ch = curl_init();
