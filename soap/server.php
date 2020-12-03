@@ -1,4 +1,5 @@
 <?php
+include_once('../includes/config.php');
 
 /**
  * Class ServerSideService.
@@ -27,7 +28,7 @@ class ServerSideService
 }
 
 $server  = new SoapServer(null, [
-    'uri' => 'http://web2hf_web/soap/server.php'
+    'uri' => 'http://' . SITE_HOST . '/soap/server.php'
 ]);
 $server->setClass('ServerSideService');
 $server->handle();

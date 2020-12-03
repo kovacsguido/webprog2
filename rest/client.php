@@ -1,6 +1,7 @@
 <?php
+include_once('../includes/config.php');
 
-$restServerUrl = 'http://web2hf_web/rest/server.php';
+$restServerUrl = 'http://' . SITE_HOST . '/rest/server.php';
 $data = [
     'title'   => 'Teszt hír - ' . date('Y.m.d. H:i:s'),
     'body'    => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec massa risus, consectetur ac magna nec, faucibus sagittis turpis. Sed accumsan dictum est, eu aliquam dui suscipit ac. Donec sagittis velit in ex lacinia gravida. Proin id quam eget justo tincidunt tincidunt sit amet quis ligula. Ut id egestas dui, eu aliquet tellus. Suspendisse aliquam justo neque, id semper turpis aliquam eget. Nam purus nunc, sagittis in mi at, aliquet sodales lectus. Nullam orci lorem, ullamcorper condimentum aliquet non, consectetur sed dui. Maecenas ac massa at quam lacinia convallis. Nullam elementum enim nec lobortis facilisis. Nullam auctor lobortis diam non lacinia. Vivamus et efficitur ligula. Donec velit nulla, ornare et massa nec, feugiat vehicula urna.',

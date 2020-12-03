@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION['user']['permission'] < 2) exit();
 
+include_once('includes/config.php');
 $message = [];
 $_SESSION['messages'] = [];
 $currentPageId = (empty($_GET['pid']) || (int)$_GET['pid'] < 1) ? 1 : (int)$_GET['pid'];
@@ -10,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body  = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING, ['options' => ['default' => '']]);
 
     if (!empty($title) && !empty($body)) {
-        $restServerUrl = 'http://web2hf_web/rest/server.php';
+        $restServerUrl = 'http://' . SITE_HOST . '/rest/server.php';
         $data = [
             'title'   => $title,
             'body'    => $body,

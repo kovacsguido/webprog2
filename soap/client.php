@@ -1,7 +1,9 @@
 <?php
+include_once('../includes/config.php');
+
 $options = [
-    'uri'        => 'http://web2hf_web/soap/server.php',
-    'location'   => 'http://web2hf_web/soap/server.php',
+    'uri'        => 'http://' . SITE_HOST . '/soap/server.php',
+    'location'   => 'http://' . SITE_HOST . '/soap/server.php',
     'keep_alive' => false,
 ];
 try {
