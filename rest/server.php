@@ -1,5 +1,5 @@
 <?php
-include_once('includes/db.class.php');
+include_once('../includes/db.class.php');
 $connection = Database::getConnection();
 
 $response = '';

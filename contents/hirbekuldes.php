@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body  = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING, ['options' => ['default' => '']]);
 
     if (!empty($title) && !empty($body)) {
-        $restServerUrl = 'http://web2hf_web/rest_server.php';
+        $restServerUrl = 'http://web2hf_web/rest/server.php';
         $data = [
             'title'   => $title,
             'body'    => $body,
