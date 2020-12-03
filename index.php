@@ -55,7 +55,10 @@ $content = Content::getPageContent($currentPageId);
 
 <main role="main" class="container">
     <div class="jumbotron">
-        <p class="lead">Üdvözlünk, <?php echo $_SESSION['user']['username']; ?>!</p>
+        <div class="row">
+            <div class="col-6">Üdvözlünk, <strong><?php echo $_SESSION['user']['username']; ?></strong>!</div>
+            <div class="col-6 text-right" id="current-datetime">asdasd</div>
+        </div>
     </div>
     <?php echo $messagesHtml; ?>
     <?php echo $content; ?>
