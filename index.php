@@ -3,7 +3,7 @@ session_start();
 
 include_once('includes/db.class.php');
 include_once('includes/content.class.php');
-include_once('includes/menu.inc.php');
+include_once('includes/menu.class.php');
 
 if (empty($_SESSION['user'])) {
     $_SESSION['user'] = [
