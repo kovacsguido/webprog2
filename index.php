@@ -7,6 +7,7 @@ include_once('includes/menu.inc.php');
 
 if (empty($_SESSION['user'])) {
     $_SESSION['user'] = [
+        'id'              => 0,
         'username'        => 'Látogató',
         'name'            => 'Látogató',
         'permission'      => 1,
@@ -58,6 +59,16 @@ $content = Content::getPageContent($currentPageId);
     </div>
     <?php echo $messagesHtml; ?>
     <?php echo $content; ?>
+    <?php
+    if ($currentPageId == 1) {
+        echo '<hr>';
+        if ($_SESSION['user']['permission'] > 1) {
+            include_once('contents/hirek.php');
+        }
+        else {
+            echo '<div class="alert alert-warning" role="alert">Sajnáljuk, a hírekhez csak a regisztrált felhasználók férhetnek hozzá!</div>';
+        }
+    } ?>
 </main>
 </body>
 </html>

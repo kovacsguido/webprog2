@@ -65,7 +65,7 @@ class User
     {
         try {
             $hash = hash('sha256', $password);
-            $sql = "SELECT u.username, u.firstname, u.lastname, u.password, u.permission, up.name AS permission_name FROM users AS u ".
+            $sql = "SELECT u.id, u.username, u.firstname, u.lastname, u.password, u.permission, up.name AS permission_name FROM users AS u ".
                 "INNER JOIN user_permissions AS up ON (u.permission = up.id) WHERE username='" . $username . "' AND `password`='" . $hash. "'";
             $connection = Database::getConnection();
             $stmt       = $connection->query($sql);
@@ -73,6 +73,7 @@ class User
 
             if (!empty($user)) {
                 $_SESSION['user'] = [
+                    'id'              => $user['id'],
                     'username'        => $user['username'],
                     'name'            => $user['lastname'] . ' ' . $user['firstname'],
                     'permission'      => $user['permission'],
