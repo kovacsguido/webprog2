@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: web2hf_db
--- Létrehozás ideje: 2020. Dec 03. 13:15
+-- Létrehozás ideje: 2020. Dec 03. 13:19
 -- Kiszolgáló verziója: 5.7.30
 -- PHP verzió: 7.4.6
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `web2hf`
 --
+CREATE DATABASE IF NOT EXISTS `web2hf` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
+USE `web2hf`;
 
 -- --------------------------------------------------------
 
