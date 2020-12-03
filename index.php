@@ -14,6 +14,18 @@ if (empty($_SESSION['user'])) {
     ];
 }
 $currentPageId = (empty($_GET['pid']) || (int)$_GET['pid'] < 1) ? 1 : (int)$_GET['pid'];
+
+$messagesHtml = '';
+if (!empty($_SESSION['messages'])) {
+    $messages = [];
+    foreach ($_SESSION['messages'] as $message) {
+        $messages[] = '<div class="alert alert-'. $message['type'] . '" role="alert">' . $message['text'] . '</div>';
+    }
+    $messagesHtml = implode("\n", $messages);
+    $_SESSION['messages'] = [];
+}
+
+$content = Content::getPageContent($currentPageId);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="hu">
@@ -22,9 +34,10 @@ $currentPageId = (empty($_GET['pid']) || (int)$_GET['pid'] < 1) ? 1 : (int)$_GET
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css"/>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link rel="stylesheet" href="assets/css/style.css?t=<?php echo time(); ?>"/>
     <script type="text/javascript" src="assets/js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js?t=<?php echo time(); ?>"></script>
 </head>
 <body>
 
@@ -41,20 +54,10 @@ $currentPageId = (empty($_GET['pid']) || (int)$_GET['pid'] < 1) ? 1 : (int)$_GET
 
 <main role="main" class="container">
     <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser’s viewport.</p>
-        <a class="btn btn-lg btn-primary" href="/docs/4.5/components/navbar/" role="button">View navbar docs &raquo;</a>
+        <p class="lead">Üdvözlünk, <?php echo $_SESSION['user']['username']; ?>!</p>
     </div>
-    <div id="upbar">
-        <div id="userinfo">
-             <span><?php echo "Üdvözlünk: " . $_SESSION['user']['username'] . "<br>Jogosultság: " . $_SESSION['user']['permission_name']; ?></span>
-        </div>
-        <div class="main-navigation" id="menu">
-            <ul class="top-level-menu">
-            </ul>
-        </div>
-    </div>
-    <?php echo Content::getPageContent($currentPageId); ?>
+    <?php echo $messagesHtml; ?>
+    <?php echo $content; ?>
 </main>
 </body>
 </html>
