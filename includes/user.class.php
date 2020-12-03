@@ -18,6 +18,8 @@ class User
      * @param string $password
      * @param string $firstname
      * @param string $lastname
+     *
+     * @return array A megjelenítendő hibaüzenet adatait tartalmazó tömb
      */
     public static function signUp($username, $password, $firstname, $lastname)
     {
@@ -27,21 +29,28 @@ class User
                 ."VALUES ('" . $username . "', '" . $firstname . "', '" . $lastname . "', '" . $hash . "', 2)";
             $connection = Database::getConnection();
             $stmt = $connection->prepare($sql);
-            $stmt->execute();
 
-            $_SESSION['user'] = [
-                'username'        => $username,
-                'name'            => $lastname . ' ' . $firstname,
-                'permission'      => 2,
-                'permission_name' => 'Regisztrált felhasználó'
-            ];
-
-            header('Location: index.php');
-            exit();
+            if ($stmt->execute()) {
+                $response = [
+                    'type' => 'success',
+                    'text' => 'A regisztráció sikerült, mostmár beléphet.'
+                ];
+            }
+            else {
+                $response = [
+                    'type' => 'danger',
+                    'text' => 'A regisztráció ismeretlen ok miatt nem sikerült!'
+                ];
+            }
         }
         catch (Exception $e) {
-            echo '<div class="alert alert-danger" role="alert">A regisztráció ismeretlen ok miatt nem sikerült!</div>';
+            $response = [
+                'type' => 'danger',
+                'text' => 'A regisztráció ismeretlen ok miatt nem sikerült, vegye fel a kapcsolatot az üzemeltetőkkel!'
+            ];
         }
+
+        return $response;
     }
 
     /**
@@ -49,6 +58,8 @@ class User
      *
      * @param string $username
      * @param string $password
+     *
+     * @return array A megjelenítendő hibaüzenet adatait tartalmazó tömb
      */
     public static function signIn($username, $password)
     {
@@ -68,16 +79,26 @@ class User
                     'permission_name' => $user['permission_name']
                 ];
 
-                header('Location: index.php');
-                exit();
+                $response = [
+                    'type' => 'success',
+                    'text' => ''
+                ];
             }
             else {
-                echo '<div class="alert alert-warning" role="alert">Helytelen felhasználónév vagy jelszó!</div>';
+                $response = [
+                    'type' => 'warning',
+                    'text' => 'Helytelen felhasználónév vagy jelszó!'
+                ];
             }
         }
         catch (Exception $e) {
-            echo '<div class="alert alert-danger" role="alert">A bejelentkezés ismeretlen ok miatt nem sikerült!</div>';
+            $response = [
+                'type' => 'danger',
+                'text' => 'A bejelentkezés ismeretlen ok miatt nem sikerült!'
+            ];
         }
+
+        return $response;
     }
 
     /**
